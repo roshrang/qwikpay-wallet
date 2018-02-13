@@ -1,0 +1,39 @@
+<script type="text/javascript">
+	$(document).ready(function(){	
+		
+		$('input[name=MyRadio]').click(function() {
+			if($(this).val() == "0") {
+				$('#DivPaid').hide();
+				$('#DivFree').show();
+			} else {
+				$('#DivFree').hide();
+				$('#DivPaid').show();
+			}
+		});
+	});
+</script>
+	<script type="text/javascript">
+	function myFunction() {
+    var x = document.getElementById("DivPaid");
+	 var y = document.getElementById("DivFree");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+		y.style.display = "none";
+    } else {
+        x.style.display = "none";
+    }
+}
+	</script>
+	<script type="text/javascript">
+	function myFunction1() {
+    var x = document.getElementById("DivPass1");
+	var y = document.getElementById("DivPass2");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+		y.style.display = "block";
+    } else {
+        x.style.display = "none";
+		y.style.display = "none";
+    }
+}
+	</script>

@@ -1,0 +1,48 @@
+function addmoney($conn,$user_id,$suser_num,$mvalue,$frndmnum)
+{
+$stmt1 = $conn->prepare("SELECT `usr_amt`,`wallet_id` FROM `user_wallet` WHERE `usr_id`=?");
+	
+	if (!$stmt1->bind_param("i",$user_id)) {
+    echo "Binding parameters failed: (" . $stmt1->errno . ") " . $stmt1->error;
+	}
+if (!$stmt1->execute()) {
+    echo "Execute failed: (" . $stmt1->errno . ") " . $stmt1->error;
+	}
+//$stmt->store_result();
+if (!$stmt1->store_result()) {
+    echo "Execute failed: (" . $stmt1->errno . ") " . $stmt1->error;
+	}
+	 if ($stmt1->num_rows == 0) 
+     {
+
+     echo "Not registered kindly Register First";
+         exit();             
+     }
+	 else
+     {
+$stmt1->bind_result($wllet_amt,$wallet_iduser); 
+$stmt1->fetch();
+$stmt1->close();
+	
+	
+	if($wllet_amt>$mvalue)
+	{
+		$stmt1 = $conn->prepare("UPDATE user_wallet SET `usr_amt` = usr_amt+? WHERE `usr_id` =?");
+		if (!$stmt1->bind_param("ii", $mvalue,$suser_num)) {
+    echo "Binding parameters failed: (" . $stmt1->errno . ") " . $stmt1->error;
+}
+if (!$stmt1->execute()) {
+    echo "Execute failed: (" . $stmt1->errno . ") " . $stmt1->error;
+}
+//$stmt->store_result();
+if (!$stmt1->store_result()) {
+    echo "Execute failed: (" . $stmt1->errno . ") " . $stmt1->error;
+}
+
+//$stmt1->bind_result($ucart_amt); 
+$stmt1->fetch();
+//$stmt->close();
+$stmt1->close()
+}
+}
+}

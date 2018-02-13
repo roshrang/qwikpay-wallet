@@ -1,0 +1,26 @@
+function successtransaction($conn,$user_id,$suser_num,$mvalue,$frndmnum)
+{
+$_SESSION['success'] = true;
+
+$ddes=$mvalue."Value transferred to other wallet";
+$sts="Success";
+
+$cdes=$mvalue."Value added to wallet";
+$stmt2 = $conn->prepare("INSERT INTO `transaction_details` ( `trn_des`, `trn_usr_id`, `trn_amt`, `trn_sts`, `trn_date`) VALUES ( ?, ?, ?, ?, NOW())");
+//$stmt2->bind_param("sids",$cdes, $suser_num, $mvalue,$sts);
+if (!$stmt2->bind_param("sids",$cdes, $suser_num, $mvalue,$sts)) {
+    echo "Binding parameters failed: (" . $stmt2->errno . ") " . $stmt2->error;
+}
+$stmt2->execute();
+$stmt2->close();
+
+$stmt1 = $conn->prepare("INSERT INTO `transaction_details` ( `trn_des`, `trn_usr_id`, `trn_amt`, `trn_sts`, `trn_date`) VALUES ( ?, ?, ?, ?, NOW())");
+$stmt1->bind_param("sids",$ddes, $user_id, $mvalue,$sts);
+$stmt1->execute();
+$stmt1->close();
+$conn->close();
+
+
+
+ header('Refresh: 2; URL = success.php');
+ }

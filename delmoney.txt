@@ -1,0 +1,19 @@
+function delmoney($conn,$user_id,$suser_num,$mvalue,$frndmnum)
+{
+$stmt2 = $conn->prepare("UPDATE user_wallet SET `usr_amt` = usr_amt-? WHERE `usr_id` =?");
+if (!$stmt2->bind_param("ii", $mvalue,$user_id)) {
+    echo "Binding parameters failed: (" . $stmt2->errno . ") " . $stmt2->error;
+}
+if (!$stmt2->execute()) {
+    echo "Execute failed: (" . $stmt2->errno . ") " . $stmt2->error;
+}
+//$stmt->store_result();
+if (!$stmt2->store_result()) {
+    echo "Execute failed: (" . $stmt2->errno . ") " . $stmt2->error;
+}
+
+//$stmt1->bind_result($ucart_amt); 
+$stmt2->fetch();
+//$stmt->close();
+$stmt2->close();
+}
